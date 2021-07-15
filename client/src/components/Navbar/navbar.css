@@ -1,0 +1,68 @@
+.Navbar{
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 50px;
+    background-color: rgb(25, 24, 61);
+    overflow-y: hidden;
+}
+
+.navbarwidget{
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbarlogo{
+    /* border: 1px solid red; */
+    text-align-last: center;
+    padding: 12px 5px;
+    font-size: 25px;
+    font-weight: 400;
+    color: white;
+    cursor: pointer;
+}
+
+.navbarlistjack{
+    display: flex;
+    list-style: none;
+    text-align: center;
+}
+
+.navbarlistitem{
+    font-size: 18px;
+    padding: 0px 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.navbarlistitem:hover{
+    background-color: gray;
+}
+
+.navbarright{
+    display: flex;
+    margin-right: 5px;
+    /* border: 1px solid white;
+    border-radius: 15px; */
+    color: white;
+    font-size: 18px;
+    padding: 12px 10px;
+    cursor: pointer;
+}
+
+.navbarright:hover{
+    text-decoration: underline;
+}
+
+.navbarrighticon{
+    padding: 2px;
+    margin-right: 10px;
+    border-radius: 47%;
+    background-color: gray;
+    object-fit: cover;
+}
+
+.link{
+    color: white;
+    text-decoration: none;
+}

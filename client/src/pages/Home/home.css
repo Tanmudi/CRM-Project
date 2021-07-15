@@ -1,0 +1,8 @@
+.Home{
+    flex: 24;
+}
+
+.charts{
+    display: flex;
+    margin-top: 40px;
+}

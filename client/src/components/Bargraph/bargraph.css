@@ -1,0 +1,14 @@
+.bargraph{
+    overflow-y: hidden;
+    flex: 1;
+    margin: 8px;
+    padding: 10px;
+    /* background-color: orange; */
+    box-shadow: 1px 0px 10px -1px rgba(0,0,0,1);
+-webkit-box-shadow: 1px 0px 10px -1px rgba(0,0,0,1);
+-moz-box-shadow: 1px 0px 10px -1px rgba(0,0,0,1);
+}
+
+.barcharttitle{
+    margin-bottom: 20px;
+}

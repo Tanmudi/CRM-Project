@@ -1,0 +1,83 @@
+.update{
+    flex: 24;
+}
+
+.titlecontainer{
+    margin: 10px;
+    text-align: center;
+    font-size: 20px;
+}
+
+.leadcontainer{
+    display: flex;
+}
+
+.leadshow{
+    flex: 1;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 1px 0px 10px -1px rgba(0,0,0,1);
+-webkit-box-shadow: 1px 0px 10px -1px rgba(0,0,0,1);
+-moz-box-shadow: 1px 0px 10px -1px rgba(0,0,0,1);
+}
+
+.leadupdate{
+    flex: 2;
+    padding: 20px;
+    margin: 20px;
+    box-shadow: 1px 0px 10px -1px rgba(0,0,0,1);
+-webkit-box-shadow: 1px 0px 10px -1px rgba(0,0,0,1);
+-moz-box-shadow: 1px 0px 10px -1px rgba(0,0,0,1);
+}
+
+.leadupdatetitle{
+    font-size: 25px;
+    font-weight: 600;
+}
+
+.leadupdateform{
+    display: flex;
+    /* justify-content: space-between; */
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.leadupdateleft{
+    width: 80%;
+}
+
+.leadupdateitem{
+    /* border: 1px solid black; */
+    display: flex;
+    margin-top: 10px;
+}
+
+.leadupdateitem>label{
+    margin-right: 10px;
+    font-size: 17px;
+    width: 20%;
+}
+
+.leadupdateitem>input{
+    width: 35%;
+}
+
+.leadupdateitem>select{
+    width: 36%;
+    height: 23px;
+}
+
+.leadupdateright{
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    /* border: 1px solid black; */
+}
+
+.leadupdateupdate{
+    font-size: 17px;
+    background-color: blue;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}

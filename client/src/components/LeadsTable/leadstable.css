@@ -1,0 +1,43 @@
+.leadstable{
+    height: 600px;
+    width: 100%;
+    margin: 10px;
+}
+
+.tablehead{
+    background-color: rgb(194, 129, 129);
+
+}
+
+/* .headtitle{
+    color: white;
+    font-size: 20px;
+} */
+
+.crud{
+    display: flex;
+    align-items: center;
+}
+
+.leadedit{
+    border: 1px solid black;
+    background-color: blue;
+    color: white;
+    padding: 0px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.leadview{
+    border: 1px solid black;
+    background-color: gray;
+    color: white;
+    margin-left: 20px;
+    padding: 0px 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.link{
+    text-decoration: none;
+}
