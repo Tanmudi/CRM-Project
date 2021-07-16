@@ -5,9 +5,9 @@ import { useHistory, useParams } from "react-router-dom";
 
 export default function UpdatePage() {
 
-
-    const url="http://localhost:4000/lead";
-    const {id} = useParams();
+    const history = useHistory();
+    const url = "http://localhost:4000/lead";
+    const { id } = useParams();
     const [lead, setlead] = useState({
         leadowner: "",
         company: "",
@@ -17,44 +17,45 @@ export default function UpdatePage() {
         phone: "",
         leadsource: "",
         annualrevenue: "",
+        status: "",
         city: "",
         state: "",
         country: "",
         comment: ""
     })
 
-    useEffect(()=>{
+    useEffect(() => {
         loaddata(id);
     }, []);
 
-    const loaddata = async (id)=>{
+    const loaddata = async (id) => {
         const welcome = await axios.get(`${url}/${id}`);
         setlead(welcome.data);
-    //     let obj = welcome.data;
-    //     let l = obj.length;
-    //     for(var i=0;i<l;i++)
-    //     {
-    //         if(id===obj[i]._id)
-    //         {
-    //             setlead(obj[i]);
-    //         }
-    //     }
+        //     let obj = welcome.data;
+        //     let l = obj.length;
+        //     for(var i=0;i<l;i++)
+        //     {
+        //         if(id===obj[i]._id)
+        //         {
+        //             setlead(obj[i]);
+        //         }
+        //     }
     }
 
-    
-    function handle(e){
-        const newdata = {...lead}
+
+    function handle(e) {
+        const newdata = { ...lead }
         newdata[e.target.name] = e.target.value
         setlead(newdata)
     }
-    
-    function submit(e){
 
-        if(!lead.leadowner || !lead.company || !lead.firstname || !lead.lastname || !lead.email || !lead.phone || !lead.leadsource || !lead.annualrevenue || !lead.city || !lead.state || !lead.country){
+    function submit(e) {
+
+        if (!lead.leadowner || !lead.company || !lead.firstname || !lead.lastname || !lead.email || !lead.phone || !lead.leadsource || !lead.annualrevenue || !lead.status || !lead.city || !lead.state || !lead.country) {
             alert("Your fields are blank");
             return false;
         }
-        else{
+        else {
             e.preventDefault();
             console.log(lead);
             const newLead = {
@@ -66,14 +67,16 @@ export default function UpdatePage() {
                 phone: lead.phone,
                 leadsource: lead.leadsource,
                 annualrevenue: lead.annualrevenue,
+                status: lead.status,
                 city: lead.city,
                 state: lead.state,
                 country: lead.country,
                 comment: lead.comment
             }
-            
-            axios.put(`${url}/${id}`, newLead)
+
+            axios.patch(`http://localhost:4000/leadupdate/${id}`, newLead)
             alert("Lead Updated Successfully");
+            history.push("/leads");
         }
     }
 
@@ -86,7 +89,47 @@ export default function UpdatePage() {
             </div>
             <div className="leadcontainer">
                 <div className="leadshow">
-                    view
+                    <div className="leadshowitem">
+                        <span className="leadshowname">Name :- </span>
+                        <span className="leadshowfirstname">{lead.firstname}</span>
+                        <span className="leadshowlastname">{lead.lastname}</span>
+                    </div>
+                    <div className="leadshowitem">
+                        <span className="leadshowemailtitle">Email :- </span>
+                        <span className="leadshowemailaddress">{lead.email}</span>
+                    </div>
+                    <div className="leadshowitem">
+                        <span className="leadshowphonetitle">Phone :- </span>
+                        <span className="leadshowphonenumber">{lead.phone}</span>
+                    </div>
+                    <div className="leadshowitem">
+                        <span className="leadshowcompanytitle">Company :- </span>
+                        <span className="leadshowcompanyname">{lead.company}</span>
+                    </div>
+                    <div className="leadshowitem">
+                        <span className="leadshowleadsourcetitle">Lead Source :- </span>
+                        <span className="leadshowleadsourcename">{lead.leadsource}</span>
+                    </div>
+                    <div className="leadshowitem">
+                        <span className="leadshowannualrevenuetitle">Annual Revenue :- </span>
+                        <span className="leadshowannualrevenuecount">{lead.annualrevenue}</span>
+                    </div>
+                    <div className="leadshowitem">
+                        <span className="leadshowannualrevenuetitle">Status :- </span>
+                        <span className="leadshowannualrevenuecount">{lead.status}</span>
+                    </div>
+                    <div className="leadshowitem">
+                        <span className="leadshowcitytitle">City :- </span>
+                        <span className="leadshowcityname">{lead.city}</span>
+                    </div>
+                    <div className="leadshowitem">
+                        <span className="leadshowstatetitle">State :- </span>
+                        <span className="leadshowstatename">{lead.state}</span>
+                    </div>
+                    <div className="leadshowitem">
+                        <span className="leadshowcountrytitle">Country :- </span>
+                        <span className="leadshowcountryname">{lead.country}</span>
+                    </div>
                 </div>
                 <div className="leadupdate">
                     <span className="leadupdatetitle">Edit</span>
@@ -94,31 +137,31 @@ export default function UpdatePage() {
                         <div className="leadupdateleft">
                             <div className="leadupdateitem">
                                 <label>Lead Owner</label>
-                                <input type="text" name="leadowner" onChange={(e)=>handle(e)} value={lead.leadowner} />
+                                <input type="text" name="leadowner" onChange={(e) => handle(e)} value={lead.leadowner} />
                             </div>
                             <div className="leadupdateitem">
                                 <label>Company</label>
-                                <input type="text" name="company" onChange={(e)=>handle(e)} value={lead.company} />
+                                <input type="text" name="company" onChange={(e) => handle(e)} value={lead.company} />
                             </div>
                             <div className="leadupdateitem">
                                 <label>First Name</label>
-                                <input type="text" name="firstname" onChange={(e)=>handle(e)} value={lead.firstname} />
+                                <input type="text" name="firstname" onChange={(e) => handle(e)} value={lead.firstname} />
                             </div>
                             <div className="leadupdateitem">
                                 <label>Last Name</label>
-                                <input type="text" name="lastname" onChange={(e)=>handle(e)} value={lead.lastname} />
+                                <input type="text" name="lastname" onChange={(e) => handle(e)} value={lead.lastname} />
                             </div>
                             <div className="leadupdateitem">
                                 <label>Email</label>
-                                <input type="email" name="email" onChange={(e)=>handle(e)} value={lead.email} />
+                                <input type="email" name="email" onChange={(e) => handle(e)} value={lead.email} />
                             </div>
                             <div className="leadupdateitem">
                                 <label>Phone</label>
-                                <input type="text" name="phone" onChange={(e)=>handle(e)} value={lead.phone}/>
+                                <input type="text" name="phone" onChange={(e) => handle(e)} value={lead.phone} />
                             </div>
                             <div className="leadupdateitem">
                                 <label>Lead Source</label>
-                                <select id="leadsource" name="leadsource" onChange={(e)=>handle(e)} value={lead.leadsource} >
+                                <select id="leadsource" name="leadsource" onChange={(e) => handle(e)} value={lead.leadsource} >
                                     <option value="None">-None-</option>
                                     <option value="advertisement">Advertisement</option>
                                     <option value="coldcall">Cold Call</option>
@@ -141,25 +184,33 @@ export default function UpdatePage() {
                             </div>
                             <div className="leadupdateitem">
                                 <label>Annual Revenue</label>
-                                <input type="text" name="annualrevenue" onChange={(e)=>handle(e)} value={lead.annualrevenue}/>
+                                <input type="text" name="annualrevenue" onChange={(e) => handle(e)} value={lead.annualrevenue} />
+                            </div>
+                            <div className="leadupdateitem">
+                                <label>Status</label>
+                                <select id="status" name="status" onChange={(e) => handle(e)} value={lead.status} >
+                                    <option value="None">-None-</option>
+                                    <option value="complete">Complete</option>
+                                    <option value="incomplete">Incomplete</option>
+                                </select>
                             </div>
                             <div className="leadupdateitem">
                                 <label>City</label>
-                                <input type="text" name="city" onChange={(e)=>handle(e)} value={lead.city}/>
+                                <input type="text" name="city" onChange={(e) => handle(e)} value={lead.city} />
                             </div>
                             <div className="leadupdateitem">
                                 <label>State</label>
-                                <input type="text" name="state" onChange={(e)=>handle(e)} value={lead.state}/>
+                                <input type="text" name="state" onChange={(e) => handle(e)} value={lead.state} />
                             </div>
                             <div className="leadupdateitem">
                                 <label>Country</label>
-                                <input type="text" name="country" onChange={(e)=>handle(e)} value={lead.country}/>
+                                <input type="text" name="country" onChange={(e) => handle(e)} value={lead.country} />
                             </div>
                             <div className="leadupdateitem">
                                 <label>Comment</label>
-                                <input type="text" name="comment" onChange={(e)=>handle(e)} value={lead.comment}/>
+                                <input type="text" name="comment" onChange={(e) => handle(e)} value={lead.comment} />
                             </div>
-                            
+
                         </div>
                         <div className="leadupdateright">
                             <button onClick={submit} className="leadupdateupdate">Update</button>

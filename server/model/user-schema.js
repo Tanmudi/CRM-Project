@@ -34,6 +34,10 @@ const leadsSchema = new Mongoose.Schema({
         type: String,
         required: true
     },
+    status: {
+        type: String,
+        required: true
+    },
     city: {
         type: String,
         required: true

@@ -22,9 +22,11 @@ export default function Leadstable() {
     phone: "",
     leadsource: "",
     annualrevenue: "",
+    status: "",
     city: "",
     state: "",
-    country: ""
+    country: "",
+    comment: "",
   }])
 
   useEffect(() => {
@@ -94,6 +96,7 @@ export default function Leadstable() {
             <TableCell>Lead Source</TableCell>
             <TableCell>Lead Owner</TableCell>
             <TableCell>Status</TableCell>
+            <TableCell>Comment</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
         </TableHead>
@@ -108,7 +111,8 @@ export default function Leadstable() {
                 <TableCell>{lead.phone}</TableCell>
                 <TableCell>{lead.leadsource}</TableCell>
                 <TableCell>{lead.leadowner}</TableCell>
-                <TableCell>active</TableCell>
+                <TableCell>{lead.status}</TableCell>
+                <TableCell>{lead.comment}</TableCell>
                 <TableCell className="action">
                   <div className="crud">
                     <Link to={`/update/${lead._id}`} className="link">

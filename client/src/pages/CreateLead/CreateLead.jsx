@@ -18,9 +18,11 @@ export default function CreateLead() {
         phone: "",
         leadsource: "",
         annualrevenue: "",
+        status: "",
         city: "",
         state: "",
-        country: ""
+        country: "",
+        comment: ""
     })
 
     
@@ -32,7 +34,7 @@ export default function CreateLead() {
     
     function submit(e){
 
-        if(!data.leadowner || !data.company || !data.firstname || !data.lastname || !data.email || !data.phone || !data.leadsource || !data.annualrevenue || !data.city || !data.state || !data.country){
+        if(!data.leadowner || !data.company || !data.firstname || !data.lastname || !data.email || !data.phone || !data.leadsource || !data.annualrevenue || !data.status || !data.city || !data.state || !data.country){
             alert("Your fields are blank");
             return false;
         }
@@ -48,9 +50,11 @@ export default function CreateLead() {
                 phone: data.phone,
                 leadsource: data.leadsource,
                 annualrevenue: data.annualrevenue,
+                status: data.status,
                 city: data.city,
                 state: data.state,
-                country: data.country
+                country: data.country,
+                comment: data.comment,
             }
             
             axios.post(url, newLead)
@@ -125,6 +129,14 @@ export default function CreateLead() {
                     <input type="text" name="annualrevenue" onChange={(e)=>handle(e)} value={data.annualrevenue} />
                 </div>
                 <div className="newleaditem">
+                    <label>Status</label>
+                    <select id="status" name="status" onChange={(e)=>handle(e)} value={data.status} >
+                        <option value="None">-None-</option>
+                        <option value="complete">Complete</option>
+                        <option value="incomplete">Incomplete</option>
+                    </select>
+                </div>
+                <div className="newleaditem">
                     <label>City</label>
                     <input type="text" name="city" onChange={(e)=>handle(e)} value={data.city} />
                 </div>
@@ -135,6 +147,10 @@ export default function CreateLead() {
                 <div className="newleaditem">
                     <label>Country</label>
                     <input type="text" name="country" onChange={(e)=>handle(e)} value={data.country} />
+                </div>
+                <div className="newleaditem">
+                    <label>Comment</label>
+                    <input type="text" name="comment" onChange={(e)=>handle(e)} value={data.comment} />
                 </div>
                 <button onClick={submit} className="createbutton" >Save</button>
             </form>

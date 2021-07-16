@@ -21,6 +21,15 @@
 -moz-box-shadow: 1px 0px 10px -1px rgba(0,0,0,1);
 }
 
+.leadshowitem{
+    margin: 10px;
+    padding: 10px;
+}
+
+.leadshowlastname{
+    margin-left: 5px;
+}
+
 .leadupdate{
     flex: 2;
     padding: 20px;
