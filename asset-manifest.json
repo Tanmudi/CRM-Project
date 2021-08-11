@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/CRM-Project/static/css/main.743d9d90.chunk.css",
+    "main.js": "/CRM-Project/static/js/main.d86cd7d6.chunk.js",
+    "main.js.map": "/CRM-Project/static/js/main.d86cd7d6.chunk.js.map",
+    "runtime-main.js": "/CRM-Project/static/js/runtime-main.efbc74ad.js",
+    "runtime-main.js.map": "/CRM-Project/static/js/runtime-main.efbc74ad.js.map",
+    "static/js/2.9522d9a6.chunk.js": "/CRM-Project/static/js/2.9522d9a6.chunk.js",
+    "static/js/2.9522d9a6.chunk.js.map": "/CRM-Project/static/js/2.9522d9a6.chunk.js.map",
+    "index.html": "/CRM-Project/index.html",
+    "static/css/main.743d9d90.chunk.css.map": "/CRM-Project/static/css/main.743d9d90.chunk.css.map",
+    "static/js/2.9522d9a6.chunk.js.LICENSE.txt": "/CRM-Project/static/js/2.9522d9a6.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.efbc74ad.js",
+    "static/js/2.9522d9a6.chunk.js",
+    "static/css/main.743d9d90.chunk.css",
+    "static/js/main.d86cd7d6.chunk.js"
+  ]
+}
