@@ -1,0 +1,12 @@
+.contacts{
+    flex: 24;
+}
+
+.contactheading{
+    /* border: 1px solid red; */
+    text-align: center;
+    font-size: 40px;
+    margin: 20px;
+    padding: 10px 0px;
+    font-weight: 600;
+}

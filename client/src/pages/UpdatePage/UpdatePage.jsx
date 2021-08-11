@@ -2,6 +2,7 @@ import "./updatepage.css"
 import axios from 'axios';
 import { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
+import { Table, TableBody, TableCell, TableHead, TableRow } from '@material-ui/core';
 
 export default function UpdatePage() {
 
@@ -24,6 +25,21 @@ export default function UpdatePage() {
         comment: ""
     })
 
+    const [comm, setcomm] = useState({
+        addcomment: "",
+        commdate: "",
+        commid: "",
+        commtime: "",
+    })
+
+    const [outcomm, setoutcomm] = useState([{
+        addcomment: "",
+        commdate: "",
+        commid: "",
+        commtime: "",
+    }])
+
+
     useEffect(() => {
         loaddata(id);
     }, []);
@@ -31,15 +47,6 @@ export default function UpdatePage() {
     const loaddata = async (id) => {
         const welcome = await axios.get(`${url}/${id}`);
         setlead(welcome.data);
-        //     let obj = welcome.data;
-        //     let l = obj.length;
-        //     for(var i=0;i<l;i++)
-        //     {
-        //         if(id===obj[i]._id)
-        //         {
-        //             setlead(obj[i]);
-        //         }
-        //     }
     }
 
 
@@ -47,6 +54,46 @@ export default function UpdatePage() {
         const newdata = { ...lead }
         newdata[e.target.name] = e.target.value
         setlead(newdata)
+    };
+
+    function handlecomment(e) {
+        const newcomm = { ...comm }
+        newcomm[e.target.name] = e.target.value
+        setcomm(newcomm)
+    }
+
+
+    function submitcomment(e) {
+        if (!comm.addcomment) {
+            alert("Please Enter the comment");
+            return false;
+        }
+        else {
+            e.preventDefault();
+            const today = new Date();
+            const date = today.getDate() + '-' + (today.getMonth() + 1) + '-' + today.getFullYear();
+            const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+            const newcomment = {
+                addcomment: comm.addcomment,
+                commid: id,
+                commdate: date,
+                commtime: time,
+            }
+            axios.post(`http://localhost:4000/comment`, newcomment);
+            axios.patch(`http://localhost:4000/commentupdate/${id}`, newcomment)
+            alert("Comment added successfully");
+            console.log(newcomment);
+        }
+    }
+
+    useEffect(() => {
+        loadcomment(id);
+    }, []);
+
+    const loadcomment = async (id) => {
+        const getcomment = await axios.get(`http://localhost:4000/getcomment/${id}`);
+        setoutcomm(getcomment.data)
+        console.log(getcomment.data);
     }
 
     function submit(e) {
@@ -216,6 +263,35 @@ export default function UpdatePage() {
                             <button onClick={submit} className="leadupdateupdate">Update</button>
                         </div>
                     </form>
+                </div>
+                <div className="leadcomment">
+                    <div className="showcomment">
+                        <Table>
+                            <TableHead>
+                                <TableRow className="tablehead">
+                                    <TableCell>Comments</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {
+                                    outcomm.map((com) => (
+                                        <TableRow>
+                                            <TableCell>
+                                                <h4>
+                                                    {com.commdate}  {com.commtime}
+                                                </h4>
+                                                {com.addcomment}
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                }
+                            </TableBody>
+                        </Table>
+                    </div>
+                    <div className="writecomment">
+                        <input type="text" name="addcomment" placeholder="Enter comment here" className="commentinput" onChange={(e) => handlecomment(e)} value={comm.addcomment} />
+                        <button onClick={submitcomment} className="commentbtn">Submit</button>
+                    </div>
                 </div>
             </div>
         </div>

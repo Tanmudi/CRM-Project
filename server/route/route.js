@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const lead = require("../model/user-schema");
+const comm = require("../model/comment-schema")
 
 
 router.route("/createlead").post((req, res) => {
@@ -17,6 +18,7 @@ router.route("/createlead").post((req, res) => {
     const state = req.body.state;
     const country = req.body.country;
     const comment = req.body.comment;
+    const leaddate = req.body.leaddate;
 
 
     const newLead = new lead({
@@ -32,7 +34,8 @@ router.route("/createlead").post((req, res) => {
         city,
         state,
         country,
-        comment
+        comment,
+        leaddate,
     });
 
     newLead.save();
@@ -46,7 +49,6 @@ router.route("/lead").get(async (req, res) => {
         (err) => {
             console.error(err);
         }
-        // res.json({message: error.message});
     }
 })
 
@@ -63,11 +65,6 @@ router.route("/lead/:id").get(async (req, res) => {
 })
 
 router.route("/leadupdate/:id").patch(async (req, res) => {
-
-    // const putlead = req.body;
-    // // console.log(putlead);
-    // const editlead = new lead(putlead);
-    // // console.log(putlead);
 
     try {
         const putlead = await lead.findById(req.params.id)
@@ -95,59 +92,163 @@ router.route("/leadupdate/:id").patch(async (req, res) => {
 })
 
 
+router.route("/comment").post((req, res)=>{
+    const addcomment = req.body.addcomment;
+    const commid = req.body.commid;
+    const commdate = req.body.commdate;
+    const commtime = req.body.commtime;
+
+    const newcomment = new comm({
+        addcomment,
+        commid,
+        commdate,
+        commtime
+    });
+    newcomment.save();
+})
+
+router.route("/commentupdate/:id").patch(async (req, res) => {
+
+    try {
+        const putlead = await lead.findById(req.params.id)
+        console.log(req.body.addcomment)
+        putlead.comment = req.body.addcomment;
+        // await lead.updateOne({ _id: req.params.id }, editlead);
+        const u1 = await putlead.save();
+        res.json(u1);
+    } catch {
+        (err) => {
+            console.log(err);
+        }
+    }
+})
+
+router.route("/getcomment/:id").get(async(req, res)=>{
+    _id = req.params.id;
+    try {
+        const getcomm = await comm.find({commid: _id});
+        res.json(getcomm);
+    } catch {
+        (err) => {
+            console.error(err);
+        }
+    }
+})
+
+router.route("/comments").get(async (req, res) => {
+    try {
+        let getdata = await lead.find({status: "complete"});
+        res.json(getdata);
+    } catch {
+        (err) => {
+            console.error(err);
+        }
+    }
+})
+ 
+
+router.route("/analysisgetbyyear").get(async (req, res)=>{
+    let today = new Date()
+    const checkdatelower = today.getFullYear() + '-' + '01' + '-' + '01'
+    const checkdateupper = (today.getFullYear() + 1) + '-' + '01' + '-' + '01'
+    try{
+        let getdata = await lead.aggregate([
+            {
+                $match : { "leaddate": { $gte: new Date(checkdatelower), $lt: new Date(checkdateupper) } }
+            },
+            {
+                $group : {
+                    _id: { $month : "$leaddate"},
+                    count: {$sum: 1}
+                }
+            },
+            { $sort : { _id : 1 } }
+        ])
+        res.json(getdata)
+    } catch {
+        (err) => {
+            console.error(err);
+        }
+    }
+})
+
+router.route("/analysisgetbypreviousyear").get(async (req, res)=>{
+    let today = new Date()
+    const checkdatelower = (today.getFullYear()-1) + '-' + '01' + '-' + '01'
+    const checkdateupper = today.getFullYear() + '-' + '01' + '-' + '01'
+    try{
+        let getdata = await lead.aggregate([
+            {
+                $match : { "leaddate": { $gte: new Date(checkdatelower), $lt: new Date(checkdateupper) } }
+            },
+            {
+                $group : {
+                    _id: { $month : "$leaddate"},
+                    count: {$sum: 1}
+                }
+            },
+            { $sort : { _id : 1 } }
+        ])
+        res.json(getdata)
+    } catch {
+        (err) => {
+            console.error(err);
+        }
+    }
+})
+
+router.route("/analysisgetbycurrentmonth").get(async (req, res)=>{
+    let today = new Date()
+    const checkdatelower = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + '01'
+    const checkdateupper = today.getFullYear() + '-' + (today.getMonth()+2) + '-' + '01'
+    try{
+        let getdata = await lead.aggregate([
+            {
+                $match : { "leaddate": { $gte: new Date(checkdatelower), $lt: new Date(checkdateupper) } }
+            },
+            {
+                $group : {
+                    _id : {$dayOfMonth : "$leaddate"},
+                    count : {$sum : 1}
+                }
+            },
+            { $sort : { _id : 1 } }
+        ])
+        // console.log(getdata)
+        res.json(getdata)
+    } catch {
+        (err) => {
+            console.error(err);
+        }
+    }
+})
+
+
+router.route("/analysisgetbypreviousmonth").get(async (req, res)=>{
+    let today = new Date()
+    const checkdatelower = today.getFullYear() + '-' + today.getMonth() + '-' + '01'
+    const checkdateupper = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + '01'
+    try{
+        let getdata = await lead.aggregate([
+            {
+                $match : { "leaddate": { $gte: new Date(checkdatelower), $lt: new Date(checkdateupper) } }
+            },
+            {
+                $group : {
+                    _id : {$dayOfMonth : "$leaddate"},
+                    count : {$sum : 1}
+                }
+            },
+            { $sort : { _id : 1 } }
+        ])
+        res.json(getdata)
+    } catch {
+        (err) => {
+            console.error(err);
+        }
+    }
+})
+
+
 module.exports = router;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// router.route("/lead").get(async (req, res)=>{
-//     await lead.find()
-//         .then(foundleads => res.json(foundleads));
-// })
-
-
-
-// import express from 'express';
-// import Mongoose from 'mongoose';
-
-// const router = express.Router();
-
-// import user from '../model/user-schema';
-
-
-
-
-
-// module.exports = router;
-
-// router.route('/create').post((req, res, next)=>{
-//     user.create(req.body, (error, data) => {
-//         if(error){
-//             return next(error);
-//         } else {
-//             console.log(data);
-//             res.json(data);
-//         }
-//     })
-// })
 

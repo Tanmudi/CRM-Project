@@ -1,6 +1,6 @@
 import React from 'react'
 import "./navbar.css";
-import {PersonOutline} from '@material-ui/icons';
+import { PersonOutline } from '@material-ui/icons';
 import { Link } from "react-router-dom";
 
 export default function Navbar() {
@@ -19,19 +19,27 @@ export default function Navbar() {
                             <Link to="/leads" className="link">
                                 Leads
                             </Link>
-                            </li>
-                        <li className="navbarlistitem">Contacts</li>
+                        </li>
+                        <li className="navbarlistitem">
+                            <Link to="/contacts" className="link">
+                                Contacts
+                            </Link>
+                        </li>
                         <li className="navbarlistitem">Accounts</li>
                         <li className="navbarlistitem">Deals</li>
                         <li className="navbarlistitem">Activities</li>
                         <li className="navbarlistitem">Reports</li>
-                        <li className="navbarlistitem">Analytics</li>
+                        <li className="navbarlistitem">
+                            <Link to="/analytics" className="link">
+                            Analytics
+                            </Link>
+                        </li>
                         <li className="navbarlistitem">Products</li>
                         <li className="navbarlistitem">Marketplace</li>
                     </ul>
                 </div>
                 <div className="navbarright">
-                    <PersonOutline className="navbarrighticon"/>
+                    <PersonOutline className="navbarrighticon" />
                     Tanmay Joshi
                 </div>
             </div>

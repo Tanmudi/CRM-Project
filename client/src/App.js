@@ -5,7 +5,9 @@ import Home from "./pages/Home/Home";
 import Leads from "./pages/Leads/Leads";
 import CreateLead from "./pages/CreateLead/CreateLead";
 import UpdatePage from "./pages/UpdatePage/UpdatePage";
+import Contacts from "./pages/Contacts/Contacts";
 import View from "./pages/View/View";
+import Analytics from "./pages/Analytics/Analytics";
 import {
   BrowserRouter as Router,
   Switch,
@@ -33,6 +35,12 @@ function App() {
           </Route>
           <Route path="/view">
             <View />
+          </Route>
+          <Route path="/contacts">
+            <Contacts/>
+          </Route>
+          <Route path="/analytics">
+            <Analytics/>
           </Route>
         </Switch>
         <Sidebar />

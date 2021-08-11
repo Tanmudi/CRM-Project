@@ -41,6 +41,7 @@ export default function CreateLead() {
         else{
             e.preventDefault();
             console.log(data);
+            const today = new Date();
             const newLead = {
                 leadowner: data.leadowner,
                 company: data.company,
@@ -55,6 +56,7 @@ export default function CreateLead() {
                 state: data.state,
                 country: data.country,
                 comment: data.comment,
+                leaddate: today,
             }
             
             axios.post(url, newLead)
